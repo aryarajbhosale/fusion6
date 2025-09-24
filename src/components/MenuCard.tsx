@@ -9,18 +9,15 @@ interface MenuCardProps {
 }
 
 const MenuCard: React.FC<MenuCardProps> = ({ item }) => {
-  const { dispatch } = useCart();
+  const { addItem } = useCart();
 
   const handleAddToCart = () => {
-    dispatch({
-      type: 'ADD_ITEM',
-      payload: {
-        id: item.id,
-        name: item.name,
-        price: item.price,
-        image: item.image,
-        category: item.category
-      }
+    addItem({
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      image: item.image,
+      category: item.category,
     });
   };
 
@@ -49,21 +46,17 @@ const MenuCard: React.FC<MenuCardProps> = ({ item }) => {
           )}
         </div>
       </div>
-      
+
       <div className="p-4">
         <div className="flex justify-between items-start mb-2">
           <h3 className="text-lg font-semibold text-gray-800 dark:text-white group-hover:text-orange-500 transition-colors duration-200">
             {item.name}
           </h3>
-          <span className="text-lg font-bold text-orange-500">
-            ${item.price.toFixed(2)}
-          </span>
+          <span className="text-lg font-bold text-orange-500">${item.price.toFixed(2)}</span>
         </div>
-        
-        <p className="text-gray-600 dark:text-gray-300 text-sm mb-3 line-clamp-2">
-          {item.description}
-        </p>
-        
+
+        <p className="text-gray-600 dark:text-gray-300 text-sm mb-3 line-clamp-2">{item.description}</p>
+
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-1">
             <Star className="w-4 h-4 text-yellow-400 fill-current" />
@@ -71,7 +64,7 @@ const MenuCard: React.FC<MenuCardProps> = ({ item }) => {
               {item.rating} ({item.reviews})
             </span>
           </div>
-          
+
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
